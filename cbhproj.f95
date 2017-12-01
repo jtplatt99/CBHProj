@@ -1,5 +1,5 @@
 !------------------------------------------------------------------------------------
-! This prohram is the main program for the CBH final project. I may or may not know
+! This program is the main program for the CBH final project. I may or may not know
 ! exactly what is does, but it is my understading that is has something to do with
 ! a police database management system.
 !
@@ -8,7 +8,7 @@
 ! mode they entered.
 !
 ! Written by Jonathan Platt Section 1 11/17/17
-! Updated ------
+! Updated 11/27/17 
 !------------------------------------------------------------------------------------
 PROGRAM cbhproj
   IMPLICIT NONE

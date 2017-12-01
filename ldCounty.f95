@@ -9,17 +9,17 @@
 PROGRAM ldCounty
   IMPLICIT NONE
   INTEGER::code,gCount=0,bCount=0,rc
-  CHARACTER::data*10
+  CHARACTER::data*12
   OPEN(10,FILE='cbhdataf17/county.data',ACTION='READ')
-  OPEN(11,FILE='cbhprojDB/county.db',FORM='FORMATTED', ACCESS='DIRECT',RECL=10)
+  OPEN(11,FILE='cbhprojDB/county.db',FORM='FORMATTED', ACCESS='DIRECT',RECL=12)
   DO
-    READ(10,'(I2,A10)',IOSTAT=rc) code,data
+    READ(10,'(I2,A12)',IOSTAT=rc) code,data
     IF(rc/=0) EXIT
-    IF(code<1 .OR. code>67) THEN
+    IF(code<0 .OR. code>68) THEN
       bCount=bCount+1
       CYCLE
     END IF
-    WRITE(11,'(A10)',REC=code+1) data
+    WRITE(11,'(A12)',REC=code+2) data
     gCount=gCount+1
   END DO
   WRITE(*,*) "The county loading sequence has finished."
