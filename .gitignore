@@ -4,6 +4,7 @@ chkmaster
 cbhproj
 # Objects
 *.o
+*.mod
 # Data files and Databases
 *Test.f95
 cbhdataf17
