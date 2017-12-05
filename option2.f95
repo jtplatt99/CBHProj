@@ -19,19 +19,19 @@ SUBROUTINE option2()
     WRITE(*,*) "5 - Display Vehicle Colors"
     WRITE(*,*) "6 - Return to Main Menu"
     WRITE(*,*)
-    WRITE(*,*) "Enter your desired mode: "
+    WRITE(*,'(A)',ADVANCE='no') "Enter your desired mode: "
     READ*,userIn
     SELECT CASE(userIn)
       CASE("1")
-        CALL display("state ",22,2,20)
+        CALL dDisplay("state ",22,2,20)
       CASE("2")
-        CALL display("county",12,0,20)
+        CALL dDisplay("county",12,0,20)
       CASE("3")
-        CALL display("vmake ",11,0,20)
+        CALL dDisplay("vmake ",11,0,20)
       CASE("4")
-        CALL display("vtype ",15,0,6)
+        CALL dDisplay("vtype ",15,0,6)
       CASE("5")
-        CALL display("color ",25,3,12)
+        CALL dDisplay("color ",25,3,12)
       CASE("6")
         EXIT
       CASE DEFAULT

@@ -1,6 +1,12 @@
 # Executables
 *.out
-
+chkmaster
+cbhproj
+# Objects
+*.o
 # Data files and Databases
+*Test.f95
 cbhdataf17
 cbhprojDB
+Makefile
+oldFiles

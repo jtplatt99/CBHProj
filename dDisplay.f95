@@ -10,7 +10,7 @@
 !
 ! Created by Jonathan Platt Section 1 11/30/2017
 !--------------------------------
-SUBROUTINE display(dataType,recordLength,codeLength,numberInRow)
+SUBROUTINE dDisplay(dataType,recordLength,codeLength,numberInRow)
   IMPLICIT NONE
 
   INTEGER,INTENT(IN)::numberInRow,recordLength,codeLength
@@ -70,4 +70,4 @@ SUBROUTINE display(dataType,recordLength,codeLength,numberInRow)
   WRITE(*,*)
   WRITE(*,*) "Press enter to continue"
   READ(*,*)
-END SUBROUTINE display
+END SUBROUTINE dDisplay

@@ -5,8 +5,8 @@
 !------------------------
 SUBROUTINE option7()
   CALL SYSTEM("clear")
-  WRITE(*,*) "You selected option 7"
-  WRITE(*,*)
+  WRITE(*,*) "* * * Police Information System Master File * * *"
+  CALL SYSTEM("./chkmaster")
   WRITE(*,*) "Press enter to continue..."
   READ*,
 END SUBROUTINE option7

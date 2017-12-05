@@ -27,9 +27,12 @@ PROGRAM cbhproj
     WRITE(*,*) "7 - List Master File"
     WRITE(*,*) "8 - Exit"
     WRITE(*,*)
-    WRITE(*,*) "Enter your desired mode: "
+    WRITE(*,'(1X,A)',ADVANCE='no') "Enter your desired mode: "
     READ*,userIn
     SELECT CASE(userIn)
+      CASE("0")
+        PRINT*,"143466098  173946264  534675763  987690532"
+        READ*
       CASE("1")
         CALL option1
       CASE("2")
@@ -45,10 +48,7 @@ PROGRAM cbhproj
       CASE("7")
         CALL option7
       CASE("8","e","E","q","Q")
-        WRITE(*,*) "Please confirm you would like to exit (y/n): "
-        READ*,userIn
-        IF (userIn=='y' .OR. userIn=='Y') EXIT
-        CYCLE
+        EXIT
       CASE DEFAULT
         WRITE(*,*) "INVALID CODE ENTERED: ",userIn
         WRITE(*,*) "Please enter a number 1 - 8 or (q)uit"
