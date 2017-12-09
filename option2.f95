@@ -32,7 +32,7 @@ SUBROUTINE option2()
         CALL dDisplay("vtype ",15,0,6)
       CASE("5")
         CALL dDisplay("color ",25,3,12)
-      CASE("6")
+      CASE("6","Q","q")
         EXIT
       CASE DEFAULT
         WRITE(*,*) "INVALID CODE ENTERED: ",userIn

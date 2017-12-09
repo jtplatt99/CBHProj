@@ -41,9 +41,9 @@ SUBROUTINE dDisplay(dataType,recordLength,codeLength,numberInRow)
 
 !   The following code handles filling the line strings with the relavent data starting with number, code, and ending with the full name
     IF (dataType=="county") THEN
-      WRITE(line(rowPos)(characterPos+1:characterPos+2),'(I2)') I-1
+      WRITE(line(rowPos)(characterPos+1:characterPos+2),'(I2.2)') I-1
     ELSE
-      WRITE(line(rowPos)(characterPos+1:characterPos+2),'(I2)') I
+      WRITE(line(rowPos)(characterPos+1:characterPos+2),'(I2.2)') I
     END IF
     line(rowPos)(characterPos+4:characterPos+3+codeLength)=data(1:codeLength)
     line(rowPos)(characterPos+5+codelength:characterPos+columnWidth-2)=data(codeLength+1:recordLength)

@@ -31,7 +31,7 @@ SUBROUTINE ldMaster
     END SELECT 
   END DO
   WRITE(11,'(I2)',REC=1) count
-  WRITE(*,'(1X,I2,A)') count," records found and loaded."
+  WRITE(*,'(2X,A,I4,A)') "'master' load finished with ",count," records found."
   CALL sort
   CLOSE(11)
 END SUBROUTINE ldMaster

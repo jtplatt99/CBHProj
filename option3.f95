@@ -14,7 +14,7 @@ SUBROUTINE option3
   OPEN(11,FILE='cbhprojDB/master.db',FORM='formatted',ACCESS='direct',RECL=106)
   DO
     CALL SYSTEM("clear")
-    WRITE(*,*) "* * * Police Information System SSN Search * * *"
+    WRITE(*,*) "* * * Police Information System [Search] * * *"
     WRITE(*,*) 
     WRITE(*,*) "Enter a SSN in the format XXX-XX-XXXX or (q)uit"
     WRITE(*,'(1X,A)',ADVANCE='no') "SSN: "
@@ -52,7 +52,6 @@ SUBROUTINE option3
       READ(*,*)
       CYCLE
     ELSE
-      WRITE(*,'(1X,A,I2)') "SSN: "//SSN(1:3)//'-'//SSN(4:5)//'-'//SSN(6:9)//" found at internal record: ",rec
       CALL pDisplay
       WRITE(*,*)
       WRITE(*,*) "Press enter to continue..."

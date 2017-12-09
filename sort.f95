@@ -29,5 +29,5 @@ SUBROUTINE sort
     END DO
     pass=pass+1
   END DO
-  WRITE(*,'(1X,I2,A)') nRecs," records in master file sorted."
+!  WRITE(*,'(1X,I2,A)') nRecs," records in master file sorted."
 END SUBROUTINE sort

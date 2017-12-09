@@ -31,7 +31,7 @@ SUBROUTINE load(dataType,recordLength,maxRecord)
     WRITE(11,'(A'//recordLengthChar//')',REC=code+2-minRecord) data
     gCount=gCount+1
   END DO
-  WRITE(*,'(2X,A,3X,I2,A,3X,I1,A)') "'"//trim(dataType)//"' loading finished with",gCount," good records and",bCount," bad records."
+  WRITE(*,'(2X,A,3X,I2,A,3X,I1,A)') "'"//dataType//"' load finished with",gCount," good records and",bCount," bad records."
   WRITE(11,'(I2)',REC=1) gCount
   CLOSE(10)
   CLOSE(11)
