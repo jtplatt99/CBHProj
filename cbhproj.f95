@@ -12,7 +12,12 @@
 !------------------------------------------------------------------------------------
 PROGRAM cbhproj
   IMPLICIT NONE
+  INTEGER::rc,dummy
   CHARACTER::userIn*1
+
+  OPEN(15,FILE='cbhprojDB/master.db',FORM='formatted',ACCESS='direct',RECL=106)
+  READ(15,'(I2)',REC=1,IOSTAT=rc) dummy
+  CLOSE(15)
 
   DO
     CALL SYSTEM("clear")
@@ -27,6 +32,7 @@ PROGRAM cbhproj
     WRITE(*,*) "7 - List Master File"
     WRITE(*,*) "8 - Exit"
     WRITE(*,*)
+    IF(rc/=0) WRITE(*,*) "Loaded data not found. Please run Option 1"
     WRITE(*,'(1X,A)',ADVANCE='no') "Enter your desired mode: "
     READ*,userIn
     SELECT CASE(userIn)
@@ -35,6 +41,7 @@ PROGRAM cbhproj
         READ*
       CASE("1")
         CALL option1
+        rc=0
       CASE("2")
         CALL option2
       CASE("3")
@@ -47,7 +54,7 @@ PROGRAM cbhproj
         CALL option6
       CASE("7")
         CALL option7
-      CASE("8","e","E","q","Q")
+      CASE("8","e","E","q","Q","-")
         EXIT
       CASE DEFAULT
         WRITE(*,*) "INVALID CODE ENTERED: ",userIn

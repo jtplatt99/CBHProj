@@ -13,7 +13,7 @@
 SUBROUTINE option4
   USE police
   IMPLICIT NONE
-  INTEGER::rec,SSNsearch,nRecs
+  INTEGER::rec,SSNsearch,nRecs,rc
   CHARACTER::readSSN*11,userIn*1,newSSN*9,tempZip*10
   
   OPEN(11,FILE='cbhprojDB/master.db',FORM='formatted',ACCESS='direct',RECL=106)
@@ -93,7 +93,11 @@ mainDo: DO
 
       DO
         WRITE(*,'(A)',ADVANCE='no') " Please enter the state code for this record (Number 01-51): "
-        READ(*,'(I2)') istcode
+        READ(*,'(I2)',IOSTAT=rc) istcode
+          IF(rc/=0) THEN
+            WRITE(*,*) "ERROR: Invalid code. Please enter a number 01-51"
+            CYCLE
+          END IF
           IF(istcode==-1) THEN
             PRINT*
             WRITE(*,*) "User quit, press enter to continue..."
@@ -102,6 +106,8 @@ mainDo: DO
           ELSEIF(istcode==-2) THEN
             CALL dDisplay("state ",22,2,20)
             CALL SYSTEM('clear')
+            WRITE(*,*) "* * * Police Information System [Add] * * *"
+            PRINT*
             CYCLE
           END IF
         IF(istcode<=51 .AND. istcode>=1) EXIT
@@ -111,7 +117,11 @@ mainDo: DO
 
       DO
         WRITE(*,'(A)',ADVANCE='no') " Please enter the county code for this record (Number 00-67): "
-        READ(*,'(I2)') ictycode
+        READ(*,'(I2)',IOSTAT=rc) ictycode
+          IF(rc/=0) THEN
+            WRITE(*,*) "ERROR: Invalid code. Please enter a number 00-67"
+            CYCLE
+          END IF
           IF(ictycode==-1) THEN
             PRINT*
             WRITE(*,*) "User quit, press enter to continue..."
@@ -120,6 +130,8 @@ mainDo: DO
           ELSEIF(ictycode==-2) THEN
             CALL dDisplay("county",12,0,20)
             CALL SYSTEM('clear')
+            WRITE(*,*) "* * * Police Information System [Add] * * *"
+            PRINT*
             CYCLE
           END IF
         IF(ictycode<=67 .AND. ictycode>=0) EXIT
@@ -129,7 +141,11 @@ mainDo: DO
       
       DO
         WRITE(*,'(A)',ADVANCE='no') " Please enter the vehicle type code for this record (Number 01-15): "
-        READ(*,'(I2)') ivtcode
+        READ(*,'(I2)',IOSTAT=rc) ivtcode
+          IF(rc/=0) THEN
+            WRITE(*,*) "ERROR: Invalid code. Please enter a number 01-15"
+            CYCLE
+          END IF
           IF(ivtcode==-1) THEN
             PRINT*
             WRITE(*,*) "User quit, press enter to continue..."
@@ -138,6 +154,8 @@ mainDo: DO
           ELSEIF(ivtcode==-2) THEN
             CALL dDisplay("vtype ",15,0,6)
             CALL SYSTEM('clear')
+            WRITE(*,*) "* * * Police Information System [Add] * * *"
+            PRINT*
             CYCLE
           END IF
         IF(ivtcode<=15 .AND. ivtcode>=1) EXIT
@@ -147,7 +165,11 @@ mainDo: DO
      
       DO
         WRITE(*,'(A)',ADVANCE='no') " Please enter the vehicle make code for this record (Number 01-51): "
-        READ(*,'(I2)') ivmcode
+        READ(*,'(I2)',IOSTAT=rc) ivmcode
+          IF(rc/=0) THEN
+            WRITE(*,*) "ERROR: Invalid code. Please enter a number 01-51"
+            CYCLE
+          END IF
           IF(ivmcode==-1) THEN
             PRINT*
             WRITE(*,*) "User quit, press enter to continue..."
@@ -156,6 +178,8 @@ mainDo: DO
           ELSEIF(ivmcode==-2) THEN
             CALL dDisplay("vmake ",11,0,20)
             CALL SYSTEM('clear')
+            WRITE(*,*) "* * * Police Information System [Add] * * *"
+            PRINT*
             CYCLE
           END IF
         IF(ivmcode<=51 .AND. ivmcode>=1) EXIT
@@ -165,7 +189,11 @@ mainDo: DO
       
       DO
         WRITE(*,'(A)',ADVANCE='no') " Please enter the vehicle top color code for this record (Number 01-31): "
-        READ(*,'(I2)') itccode
+        READ(*,'(I2)',IOSTAT=rc) itccode
+          IF(rc/=0) THEN
+            WRITE(*,*) "ERROR: Invalid code. Please enter a number 01-31"
+            CYCLE
+          END IF
           IF(itccode==-1) THEN
             PRINT*
             WRITE(*,*) "User quit, press enter to continue..."
@@ -174,6 +202,8 @@ mainDo: DO
           ELSEIF(itccode==-2) THEN
             CALL dDisplay("color ",25,3,12)
             CALL SYSTEM('clear')
+            WRITE(*,*) "* * * Police Information System [Add] * * *"
+            PRINT*
             CYCLE
           END IF
         IF(itccode<=31 .AND. itccode>=1) EXIT
@@ -183,7 +213,11 @@ mainDo: DO
     
       DO
         WRITE(*,'(A)',ADVANCE='no') " Please enter the vehicle bottom color code for this record (Number 01-31): "
-        READ(*,'(I2)') ibccode
+        READ(*,'(I2)',IOSTAT=rc) ibccode
+          IF(rc/=0) THEN
+            WRITE(*,*) "ERROR: Invalid code. Please enter a number 01-31"
+            CYCLE
+          END IF
           IF(ibccode==-1) THEN
             PRINT*
             WRITE(*,*) "User quit, press enter to continue..."
@@ -192,6 +226,8 @@ mainDo: DO
           ELSEIF(ibccode==-2) THEN
             CALL dDisplay("color ",25,3,12)
             CALL SYSTEM('clear')
+            WRITE(*,*) "* * * Police Information System [Add] * * *"
+            PRINT*
             CYCLE
           END IF
         IF(ibccode<=31 .AND. ibccode>=1) EXIT

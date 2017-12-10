@@ -164,6 +164,8 @@ mainDo:  DO
         ELSEIF(newIn(1:2)=='-2') THEN
           CALL dDisplay("state ",22,2,20)
           CALL SYSTEM('clear')
+          WRITE(*,*) "* * * Police Information System [Modify] * * *"
+          PRINT*
           CYCLE
         END IF
       IF(newIn(1:1)/=' ' .AND. (newIn>='01' .AND. newIn<='51')) THEN
@@ -189,6 +191,8 @@ mainDo:  DO
         ELSEIF(newIn(1:2)=='-2') THEN
           CALL dDisplay("county",12,0,20)
           CALL SYSTEM('clear')
+          WRITE(*,*) "* * * Police Information System [Modify] * * *"
+          PRINT*
           CYCLE
         END IF
       IF(newIn(1:1)/=' ' .AND. (newIn>='00' .AND. newIn<='67')) THEN
@@ -214,6 +218,8 @@ mainDo:  DO
         ELSEIF(newIn(1:2)=='-2') THEN
           CALL dDisplay("vtype ",15,0,6)
           CALL SYSTEM('clear')
+          WRITE(*,*) "* * * Police Information System [Modify] * * *"
+          PRINT*
           CYCLE
         END IF
       IF(newIn(1:1)/=' ' .AND. (newIn>='01' .AND. newIn<='15')) THEN
@@ -239,6 +245,8 @@ mainDo:  DO
         ELSEIF(newIn(1:2)=='-2') THEN
           CALL dDisplay("vmake ",11,0,20)
           CALL SYSTEM('clear')
+          WRITE(*,*) "* * * Police Information System [Modify] * * *"
+          PRINT*
           CYCLE
         END IF
       IF(newIn(1:1)/=' ' .AND. (newIn>='01' .AND. newIn<='51')) THEN
@@ -264,6 +272,8 @@ mainDo:  DO
         ELSEIF(newIn(1:2)=='-2') THEN
           CALL dDisplay("color ",25,3,12)
           CALL SYSTEM('clear')
+          WRITE(*,*) "* * * Police Information System [Modify] * * *"
+          PRINT*
           CYCLE
         END IF
       IF(newIn(1:1)/=' ' .AND. (newIn>='01' .AND. newIn<='31')) THEN
@@ -289,6 +299,8 @@ mainDo:  DO
         ELSEIF(newIn(1:2)=='-2') THEN
           CALL dDisplay("color ",25,3,12)
           CALL SYSTEM('clear')
+          WRITE(*,*) "* * * Police Information System [Modify] * * *"
+          PRINT*
           CYCLE
         END IF
       IF(newIn(1:1)/=' ' .AND. (newIn>='01' .AND. newIn<='31')) THEN
