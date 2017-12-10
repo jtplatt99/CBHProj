@@ -30,8 +30,8 @@ SUBROUTINE pDisplay
   WRITE(*,100) city,st(1:2),zip(1:5),zip(6:9) 
 100 FORMAT(T23,A19,", ",A2,1X,A5,"-",A4)
   WRITE(*,*)
-  WRITE(*,105) istcode,st(3:22),cty
-105 FORMAT(T16,"State: (",I2.2,") ",A20,/,T15,"County: ",A12) 
+  WRITE(*,105) istcode,st(3:22),ictycode,cty
+105 FORMAT(T16,"State: (",I2.2,") ",A20,/,T15,"County: (",I2.2,") ",A12) 
   WRITE(*,*)
   WRITE(*,'(T9,"Vehicle Information:")')
   WRITE(*,110) tag,st(1:2)
