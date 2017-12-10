@@ -15,7 +15,7 @@ SUBROUTINE option6
   
   OPEN(11,FILE='cbhprojDB/master.db',FORM='formatted',ACCESS='direct',RECL=106)
   READ(11,'(I2)',rec=1) nRecs
-  DO
+mainDo:  DO
     CALL SYSTEM("clear")
     WRITE(*,*) "* * * Police Information System [Modify] * * *"
     WRITE(*,*) 
@@ -59,11 +59,20 @@ SUBROUTINE option6
       READ(*,'(A1)') userIn
       IF(userIn=='n' .OR. userIn=='N') CYCLE
       WRITE(*,*)
+      WRITE(*,*) "Enter '-1' to quit at anytime"
+      WRITE(*,*)
 
     DO
       WRITE(*,'(A,A9)') " Press enter to keep current SSN: ",modSSN
       WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified SSN (11 digits w/ hyphens): "
       READ(*,'(A11)') newIn
+
+        IF(newIn(1:2)=='-1') THEN
+          WRITE(*,*) "User quit, press enter to continue..."
+          READ*
+          CYCLE mainDo
+        END IF
+
       IF(newIn(1:1)/=' ') THEN
 
         IF(newIn(1:1)>'9' .OR. newIn(1:1)<'0') THEN
@@ -96,6 +105,11 @@ SUBROUTINE option6
       WRITE(*,'(A,A20)') " Press enter to keep current name: ",name 
       WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified name (20 characters max): "
       READ(*,'(A20)') newIn
+        IF(newIn(1:2)=='-1') THEN
+          WRITE(*,*) "User quit, press enter to continue..."
+          READ*
+          CYCLE mainDo
+        END IF
       IF(newIn(1:1)/=' ') WRITE(name,'(A20)') newIn(1:20)
       IF(newIn(1:1)==' ') WRITE(*,'(A,A3,A)') "Keeping unmodified"
       PRINT*
@@ -103,6 +117,11 @@ SUBROUTINE option6
       WRITE(*,'(A,A30)') " Press enter to keep current street: ",street 
       WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified street (30 characters max): "
       READ(*,'(A30)') newIn
+        IF(newIn(1:2)=='-1') THEN
+          WRITE(*,*) "User quit, press enter to continue..."
+          READ*
+          CYCLE mainDo
+        END IF
       IF(newIn(1:1)/=' ') WRITE(street,'(A30)') newIn(1:30)
       IF(newIn(1:1)==' ') WRITE(*,'(A,A3,A)') "Keeping unmodified"
       PRINT*
@@ -110,6 +129,11 @@ SUBROUTINE option6
       WRITE(*,'(A,A19)') " Press enter to keep current city: ",city 
       WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified city (19 characters max): "
       READ(*,'(A19)') newIn
+        IF(newIn(1:2)=='-1') THEN
+          WRITE(*,*) "User quit, press enter to continue..."
+          READ*
+          CYCLE mainDo
+        END IF
       IF(newIn(1:1)/=' ') WRITE(city,'(A19)') newIn(1:19)
       IF(newIn(1:1)==' ') WRITE(*,'(A,A3,A)') "Keeping unmodified"
       PRINT*
@@ -117,14 +141,31 @@ SUBROUTINE option6
       WRITE(*,'(A,A5,A,A4)') " Press enter to keep current zip: ",zip(1:5),"-",zip(6:9)
       WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified zip (XXXXX-XXXX): "
       READ(*,'(A10)') newIn
+        IF(newIn(1:2)=='-1') THEN
+          WRITE(*,*) "User quit, press enter to continue..."
+          READ*
+          CYCLE mainDo
+        END IF
       IF(newIn(1:1)/=' ') WRITE(zip,'(A5,A4)') newIn(1:5),newIn(7:10)
       IF(newIn(1:1)==' ') WRITE(*,'(A,A3,A)') "Keeping unmodified"
+      PRINT*
+
+      WRITE(*,*) "Enter '-2' to see the data tables"
       PRINT*
 
     DO
       WRITE(*,'(A,I2.2,A,A2)') " Press enter to keep current state: (",istcode,") ",decode("state ",22,istcode)
       WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified state code (Number 01-51): "
       READ(*,'(A2)') newIn
+        IF(newIn(1:2)=='-1') THEN
+          WRITE(*,*) "User quit, press enter to continue..."
+          READ*
+          CYCLE mainDo
+        ELSEIF(newIn(1:2)=='-2') THEN
+          CALL dDisplay("state ",22,2,20)
+          CALL SYSTEM('clear')
+          CYCLE
+        END IF
       IF(newIn(1:1)/=' ' .AND. (newIn>='01' .AND. newIn<='51')) THEN
         READ(newIn(1:2),'(I2)') istcode
         EXIT
@@ -141,6 +182,15 @@ SUBROUTINE option6
       WRITE(*,'(A,I2.2,A,A12)') " Press enter to keep current county: (",ictycode,") ",decode("county",12,ictycode)
       WRITE(*,'(A)',ADVANCE='no') "  Please enter modified county code (Number 00-67): "
       READ(*,'(A2)') newIn
+        IF(newIn(1:2)=='-1') THEN
+          WRITE(*,*) "User quit, press enter to continue..."
+          READ*
+          CYCLE mainDo
+        ELSEIF(newIn(1:2)=='-2') THEN
+          CALL dDisplay("county",12,0,20)
+          CALL SYSTEM('clear')
+          CYCLE
+        END IF
       IF(newIn(1:1)/=' ' .AND. (newIn>='00' .AND. newIn<='67')) THEN
         READ(newIn(1:2),'(I2)') ictycode
         EXIT
@@ -157,6 +207,15 @@ SUBROUTINE option6
       WRITE(*,'(A,I2.2,A,A15)') " Press enter to keep current vehicle type: (",ivtcode,") ",decode("vtype ",15,ivtcode)
       WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified vehicle type code (Number 01-15): "
       READ(*,'(A2)') newIn
+        IF(newIn(1:2)=='-1') THEN
+          WRITE(*,*) "User quit, press enter to continue..."
+          READ*
+          CYCLE mainDo
+        ELSEIF(newIn(1:2)=='-2') THEN
+          CALL dDisplay("vtype ",15,0,6)
+          CALL SYSTEM('clear')
+          CYCLE
+        END IF
       IF(newIn(1:1)/=' ' .AND. (newIn>='01' .AND. newIn<='15')) THEN
         READ(newIn(1:2),'(I2)') ivtcode
         EXIT
@@ -173,6 +232,15 @@ SUBROUTINE option6
       WRITE(*,'(A,I2.2,A,A11)') " Press enter to keep current vehicle make: (",ivmcode,") ",decode("vmake ",11,ivmcode)
       WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified vehicle make code (Number 01-51): "
       READ(*,'(A2)') newIn
+        IF(newIn(1:2)=='-1') THEN
+          WRITE(*,*) "User quit, press enter to continue..."
+          READ*
+          CYCLE mainDo
+        ELSEIF(newIn(1:2)=='-2') THEN
+          CALL dDisplay("vmake ",11,0,20)
+          CALL SYSTEM('clear')
+          CYCLE
+        END IF
       IF(newIn(1:1)/=' ' .AND. (newIn>='01' .AND. newIn<='51')) THEN
         READ(newIn(1:2),'(I2)') ivmcode
         EXIT
@@ -189,6 +257,15 @@ SUBROUTINE option6
       WRITE(*,'(A,I2.2,A,A3)') " Press enter to keep current top color: (",itccode,") ",decode("color ",25,itccode)
       WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified top color code (Number 01-31): "
       READ(*,'(A2)') newIn
+        IF(newIn(1:2)=='-1') THEN
+          WRITE(*,*) "User quit, press enter to continue..."
+          READ*
+          CYCLE mainDo
+        ELSEIF(newIn(1:2)=='-2') THEN
+          CALL dDisplay("color ",25,3,12)
+          CALL SYSTEM('clear')
+          CYCLE
+        END IF
       IF(newIn(1:1)/=' ' .AND. (newIn>='01' .AND. newIn<='31')) THEN
         READ(newIn(1:2),'(I2)') itccode
         EXIT
@@ -205,6 +282,15 @@ SUBROUTINE option6
       WRITE(*,'(A,I2.2,A,A3)') " Press enter to keep current bottom color: (",ibccode,") ",decode("color ",25,ibccode)
       WRITE(*,'(A)',ADVANCE='no') "  Please enter the motified bottom color code (Number 01-31): "
       READ(*,'(A2)') newIn
+        IF(newIn(1:2)=='-1') THEN
+          WRITE(*,*) "User quit, press enter to continue..."
+          READ*
+          CYCLE mainDo
+        ELSEIF(newIn(1:2)=='-2') THEN
+          CALL dDisplay("color ",25,3,12)
+          CALL SYSTEM('clear')
+          CYCLE
+        END IF
       IF(newIn(1:1)/=' ' .AND. (newIn>='01' .AND. newIn<='31')) THEN
         READ(newIn(1:2),'(I2)') ibccode
         EXIT
@@ -220,6 +306,11 @@ SUBROUTINE option6
       WRITE(*,'(A,A7)') " Press enter to keep current tag: ",tag
       WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified license plate tag (7 characters max): "
       READ(*,'(A7)') newIn
+        IF(newIn(1:2)=='-1') THEN
+          WRITE(*,*) "User quit, press enter to continue..."
+          READ*
+          CYCLE mainDo
+        END IF
       IF(newIn(1:1)/=' ') WRITE(tag,'(A7)') newIn(1:7)
       IF(newIn(1:1)==' ') WRITE(*,'(A,A3,A)') "Keeping unmodified"
       PRINT*
@@ -243,6 +334,6 @@ SUBROUTINE option6
       READ*
       CYCLE
     END IF
-  END DO
+  END DO mainDo
   CLOSE(11)
 END SUBROUTINE option6

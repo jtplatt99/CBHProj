@@ -24,5 +24,5 @@ CHARACTER(LEN=25) FUNCTION decode(dataType,recordLength,dataCode)
   ELSE
     READ(10,'(A'//recordLengthChar//')',REC=dataCode+2-minRecord) decode 
   END IF
-  RETURN
+  CLOSE(10)
 END FUNCTION decode

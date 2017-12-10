@@ -27,8 +27,8 @@ SUBROUTINE dDisplay(dataType,recordLength,codeLength,numberInRow)
   WRITE(recordLengthChar,'(I2)') recordLength
 
   columnWidth=recordLength+6
-  OPEN(10,FILE='cbhprojDB/'//trim(dataType)//'.db',FORM='FORMATTED',ACCESS='DIRECT',RECL=recordLength,ACTION='READ')
-  READ(10,'(I2)',REC=1) nRecs
+  OPEN(15,FILE='cbhprojDB/'//trim(dataType)//'.db',FORM='FORMATTED',ACCESS='DIRECT',RECL=recordLength,ACTION='READ')
+  READ(15,'(I2)',REC=1) nRecs
 
 ! The following code blank fills the line strings in preparation for data filling later on
   DO I=1,numberInRow
@@ -37,7 +37,7 @@ SUBROUTINE dDisplay(dataType,recordLength,codeLength,numberInRow)
 
   DO I=1,nRecs
     characterPos=(column-1)*columnWidth
-    READ(10,'(A'//recordLengthChar//')',REC=I+1) data
+    READ(15,'(A'//recordLengthChar//')',REC=I+1) data
 
 !   The following code handles filling the line strings with the relavent data starting with number, code, and ending with the full name
     IF (dataType=="county") THEN
@@ -64,7 +64,7 @@ SUBROUTINE dDisplay(dataType,recordLength,codeLength,numberInRow)
     WRITE(*,*) line(I)
   END DO
 
-  CLOSE(10)
+  CLOSE(15)
   WRITE(*,*)
   WRITE(*,'(A,I2,A)') " End of data. Wrote ",nRecs," data items"
   WRITE(*,*)
