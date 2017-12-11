@@ -50,6 +50,7 @@ mainDo:  DO
       WRITE(*,*) "Record with SSN: ",modSSN(1:3)//'-'//modSSN(4:5)//'-'//modSSN(6:9)," not found."
       WRITE(*,*)
       WRITE(*,*) "Press enter to continue..."
+      READ*
       CYCLE
     ELSE
       SSN=modSSN
@@ -138,6 +139,7 @@ mainDo:  DO
       IF(newIn(1:1)==' ') WRITE(*,'(A,A3,A)') "Keeping unmodified"
       PRINT*
 
+    DO
       WRITE(*,'(A,A5,A,A4)') " Press enter to keep current zip: ",zip(1:5),"-",zip(6:9)
       WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified zip (XXXXX-XXXX): "
       READ(*,'(A10)') newIn
@@ -145,11 +147,15 @@ mainDo:  DO
           WRITE(*,*) "User quit, press enter to continue..."
           READ*
           CYCLE mainDo
+        ELSEIF(newIn(1:1)<'0' .OR. newIn(1:1)>'9') THEN
+          WRITE(*,*) "Please enter only digits between 0 and 9 in the form XXXXX-XXXX"
+          CYCLE
         END IF
       IF(newIn(1:1)/=' ') WRITE(zip,'(A5,A4)') newIn(1:5),newIn(7:10)
       IF(newIn(1:1)==' ') WRITE(*,'(A,A3,A)') "Keeping unmodified"
+      EXIT
+    END DO
       PRINT*
-
       WRITE(*,*) "Enter '-2' to see the data tables"
       PRINT*
 

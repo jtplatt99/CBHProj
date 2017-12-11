@@ -78,16 +78,22 @@ mainDo: DO
           READ*
           CYCLE mainDo
         END IF
+    DO
       WRITE(*,'(A)',ADVANCE='no') " Please enter the zip code for this record (XXXXX-XXXX): "
       READ(*,'(A10)') tempZip
-       zip=tempZip(1:5)//tempZip(7:10)
-      PRINT*
-        IF(tempZip=='-1') THEN
+      IF(tempZip=='-1') THEN
           WRITE(*,*) "User quit, press enter to continue..."
           READ*
           CYCLE mainDo
-        END IF
-     
+      ELSEIF(tempZip(1:1)<'0' .OR. tempZip(1:1)>'9') THEN
+        WRITE(*,*) "Please enter only digits between 0 and 9 in the form XXXXX-XXXX"
+        CYCLE
+      END IF
+       zip=tempZip(1:5)//tempZip(7:10)
+      PRINT*
+      EXIT
+    END DO
+    
       WRITE(*,*) "Enter '-2' to see the data tables"
       PRINT*
 
