@@ -38,8 +38,9 @@ SUBROUTINE option7()
     END IF
   END DO
   CLOSE(11)
+  IF(I==nRecs+2) I=nRecs+1 
   WRITE(*,*)
-  WRITE(*,'(1X,I2.2,A,I2.2,A)') I-2," out of ",nRecs," records printed"
+  WRITE(*,'(1X,I2.2,A,I2.2,A)') I-1," out of ",nRecs," records printed"
   WRITE(*,*) "Press enter to continue..."
   READ*
 END SUBROUTINE option7
