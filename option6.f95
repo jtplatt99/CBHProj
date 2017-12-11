@@ -58,7 +58,7 @@ mainDo:  DO
       PRINT*
       WRITE(*,'(A)',ADVANCE='no') "Is this the record you wish to modify? (y/n): "
       READ(*,'(A1)') userIn
-      IF(userIn=='n' .OR. userIn=='N') CYCLE
+      IF(userIn/='y' .AND. userIn/='Y') CYCLE
       WRITE(*,*)
       WRITE(*,*) "Enter '-1' to quit at anytime"
       WRITE(*,*)
@@ -147,12 +147,14 @@ mainDo:  DO
           WRITE(*,*) "User quit, press enter to continue..."
           READ*
           CYCLE mainDo
+        ELSEIF(newIn(1:1)==' ') THEN
+          WRITE(*,'(A,A3,A)') "Keeping unmodified"
+          EXIT
         ELSEIF(newIn(1:1)<'0' .OR. newIn(1:1)>'9' .OR. len(trim(newIn))/=10) THEN
           WRITE(*,*) "Please enter only digits between 0 and 9 in the form XXXXX-XXXX"
           CYCLE
         END IF
       IF(newIn(1:1)/=' ') WRITE(zip,'(A5,A4)') newIn(1:5),newIn(7:10)
-      IF(newIn(1:1)==' ') WRITE(*,'(A,A3,A)') "Keeping unmodified"
       EXIT
     END DO
       PRINT*
@@ -187,6 +189,11 @@ mainDo:  DO
       PRINT*
 
     DO
+      IF(istcode/=2) THEN
+        WRITE(*,*) "State is not Alabama, autofilling county with 'Out of State'"
+        ictycode=00
+        EXIT
+      END IF
       WRITE(*,'(A,I2.2,A,A12)') " Press enter to keep current county: (",ictycode,") ",decode("county",12,ictycode)
       WRITE(*,'(A)',ADVANCE='no') "  Please enter modified county code (Number 00-67): "
       READ(*,'(A2)') newIn

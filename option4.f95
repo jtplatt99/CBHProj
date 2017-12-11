@@ -122,6 +122,11 @@ mainDo: DO
       PRINT*
 
       DO
+        IF(istcode/=2) THEN
+          WRITE(*,*) "State is not Alabama, autofilling county with 'Out of State'"
+          ictycode=00
+          EXIT
+        END IF
         WRITE(*,'(A)',ADVANCE='no') " Please enter the county code for this record (Number 00-67): "
         READ(*,'(I2)',IOSTAT=rc) ictycode
           IF(rc/=0) THEN
