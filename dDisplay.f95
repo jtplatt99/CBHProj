@@ -65,9 +65,5 @@ SUBROUTINE dDisplay(dataType,recordLength,codeLength,numberInRow)
   END DO
 
   CLOSE(15)
-  WRITE(*,*)
-  WRITE(*,'(A,I2,A)') " End of data. Wrote ",nRecs," data items"
-  WRITE(*,*)
-  WRITE(*,*) "Press enter to continue"
-  READ(*,*)
+  WRITE(*,'(A,I2,A)') "Wrote ",nRecs," data items"
 END SUBROUTINE dDisplay

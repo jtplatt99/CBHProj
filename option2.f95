@@ -37,9 +37,9 @@ SUBROUTINE option2()
       CASE DEFAULT
         WRITE(*,*) "INVALID CODE ENTERED: ",userIn
         WRITE(*,*) "Please enter a number 1 - 6"
-        WRITE(*,*)
-        WRITE(*,*) "Press enter to continue..."
-        READ*,
     END SELECT
+    WRITE(*,*)
+    WRITE(*,*) "Press enter to continue..."
+    READ*,
   END DO
 END SUBROUTINE option2

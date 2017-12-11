@@ -10,7 +10,7 @@
 SUBROUTINE option6
   USE police
   IMPLICIT NONE
-  INTEGER::rec,rec2,SSNnoPo,nRecs,SSNsearch
+  INTEGER::rec,rec2,SSNnoPo,nRecs
   CHARACTER::readSSN*11,userIn*2,modSSN*9,newIn*30,decode*25
   
   OPEN(11,FILE='cbhprojDB/master.db',FORM='formatted',ACCESS='direct',RECL=106)
@@ -64,11 +64,10 @@ mainDo:  DO
       WRITE(*,*) "2. Name            5. Zip Code        8. Vehicle Type Code    11. Bottom Color Code"
       WRITE(*,*) "3. Street Address  6. State Code      9. Vehicle Model Code   12. Vehicle Tag"
       PRINT*
-      WRITE(*,'(A)',ADVANCE='no') " Enter the # you would like to modify, S to save or Q to quit without saving: "
+      WRITE(*,'(A)',ADVANCE='no') "Enter the # you would like to modify, S to save or Q to quit without saving"
       READ(*,'(A2)') userIn
-      PRINT*
 
-      SELECT CASE(userIn)
+      SELECT CASE
         CASE('s','S')
           WRITE(11,100,rec=rec) modSSN,name,street,city,zip,istcode,ictycode,ivtcode,itccode,ivmcode,ibccode,tag
 100        FORMAT(A9,A20,A30,A19,A9,6I2,A7)
@@ -78,43 +77,29 @@ mainDo:  DO
           CYCLE mainDo
         CASE('q','Q')
           WRITE(*,*) "Modifications NOT saved. Press enter to continue..."
-          READ*
-          CYCLE mainDo
         CASE('1')
-        DO
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified SSN (11 digits w/ hyphens): "
           READ(*,'(A11)') newIn
           IF(newIn(1:1)>'9' .OR. newIn(1:1)<'0') THEN
             WRITE(*,*)
             WRITE(*,*) "ERROR: Invalid SSN: ",newIn
             WRITE(*,*) "Only integers 1-9 and '-' are valid entries"
-            PRINT*
-            WRITE(*,*) "Press enter to continue..."
-            READ*
             CYCLE
           ELSEIF(len(trim(newIn))/=9 .AND. len(trim(newIn))/=11) THEN
             WRITE(*,*)
             WRITE(*,*) "ERROR: Invalid SSN: ",newIn
             WRITE(*,*) "A SSN must be 9 (or 11 with hyphens) digits long"
             WRITE(*,'(1X,A,I2,A)') "You entered: ",len(trim(newIn))," digits"
-            PRINT*
-            WRITE(*,*) "Press enter to continue..."
-            READ*
             CYCLE
           END IF
           IF(newIn(4:4)=='-' .OR. newIn(4:4)==":") newIn=newIn(1:3)//newIn(5:6)//newIn(8:11) 
           IF(SSNnoPo(newIn(1:9))==0 .OR. newIn(1:9)==modSSN) THEN
             WRITE(modSSN,'(A9)') newIn(1:9)
-            WRITE(SSN,'(A9)') newIn(1:9)
             EXIT
-          ELSE 
+          ELSE THEN
             WRITE(*,'(A,A9,A)') " SSN: ",newIn(1:9)," already exists."
-            PRINT*
-            WRITE(*,*) "Press enter to continue..."
-            READ*
             CYCLE
           END IF
-        END DO
         CASE('2')
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified name (20 characters max): "
           READ(*,'(A20)') name
@@ -124,18 +109,10 @@ mainDo:  DO
         CASE('4')
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified city (19 characters max): "
           READ(*,'(A19)') city
-        CASE('5')
-        DO     
+        CASE('5')     
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified zip (XXXXX-XXXX): "
           READ(*,'(A10)') newIn
-          IF(newIn(1:1)<'0' .OR. newIn(1:1)>'9' .OR. (len(trim(newIn))/=9 .AND. len(trim(newIn))/=10)) THEN
-            WRITE(*,*) "Please enter only digits between 0 and 9 in the form XXXXX-XXXX"
-            CYCLE
-          END IF
-          IF(len(trim(newIn))==10) zip=newIn(1:5)//newIn(7:10)
-          IF(len(trim(newIn))==9) zip=newIn(1:9)
-          EXIT
-        END DO
+          zip=newIn(1:5)//newIn(7:10)
         CASE('6')
         DO
           CALL SYSTEM('clear')
@@ -151,7 +128,6 @@ mainDo:  DO
             ". Please enter a code between 01 and 51 (single digits must include leading 0)"
           PRINT*
           WRITE(*,*) "Press enter to continue..."
-          READ*
         END DO
         CASE('7')
         DO
@@ -168,7 +144,6 @@ mainDo:  DO
             ". Please enter a code between 00 and 67 (single digits must include leading 0)"
           PRINT*
           WRITE(*,*) "Press enter to continue..."
-          READ*
         END DO
         CASE('8')
         DO
@@ -182,8 +157,6 @@ mainDo:  DO
           END IF
           WRITE(*,'(A,A3,A)') "ERROR: Invalid code: ",newIn(1:3),&
             ". Please enter a code between 01 and 15 (single digits must include leading 0)"
-          PRINT*
-          WRITE(*,*) "Press enter to continue..."
         END DO
         CASE('9')
         DO
@@ -197,8 +170,6 @@ mainDo:  DO
           END IF
           WRITE(*,'(A,A3,A)') "ERROR: Invalid code: ",newIn(1:3),&
             ". Please enter a code between 01 and 51 (single digits must include leading 0)"
-          PRINT*
-          WRITE(*,*) "Press enter to continue..."
         END DO
         CASE('10')
         DO
@@ -212,8 +183,6 @@ mainDo:  DO
           END IF
           WRITE(*,'(A,A3,A)') "ERROR: Invalid code: ",newIn(1:3),&
             ". Please enter a code between 01 and 31 (single digits must include leading 0)"
-          PRINT*
-          WRITE(*,*) "Press enter to continue..."
         END DO
         CASE('11')
         DO
@@ -227,20 +196,17 @@ mainDo:  DO
           END IF
           WRITE(*,'(A,A3,A)') "ERROR: Invalid code: ",newIn(1:3),&
             ". Please enter a code between 01 and 31 (single digits must include leading 0)"
-          PRINT*
-          WRITE(*,*) "Press enter to continue..."
         END DO
         CASE('12')
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified license plate tag (7 characters max): "
-          READ(*,'(A7)') tag
+          READ(*,'(A7)') zip
         CASE DEFAULT
           WRITE(*,'(A,A2,A)') " ERROR: Invalid Entry: ",userIn,". Please enter numbers 1-12, 'S' or 'Q'"
           PRINT*
           WRITE(*,*) "Press enter to continue"
           READ*
-        END SELECT
-      END DO
-    END IF
+      END SELECT CASE
+    END DO
   END DO mainDo
   CLOSE(11)
 END SUBROUTINE option6
