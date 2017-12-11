@@ -85,7 +85,7 @@ mainDo: DO
           WRITE(*,*) "User quit, press enter to continue..."
           READ*
           CYCLE mainDo
-      ELSEIF(tempZip(1:1)<'0' .OR. tempZip(1:1)>'9') THEN
+      ELSEIF(tempZip(1:1)<'0' .OR. tempZip(1:1)>'9' .OR. len(trim(tempZip))/=10) THEN
         WRITE(*,*) "Please enter only digits between 0 and 9 in the form XXXXX-XXXX"
         CYCLE
       END IF
