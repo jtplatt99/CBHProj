@@ -84,6 +84,7 @@ mainDo:  DO
         DO
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified SSN (11 digits w/ hyphens): "
           READ(*,'(A11)') newIn
+          IF(newIn(1:1)==' ') EXIT
           IF(newIn(1:1)>'9' .OR. newIn(1:1)<'0') THEN
             WRITE(*,*)
             WRITE(*,*) "ERROR: Invalid SSN: ",newIn
@@ -116,18 +117,22 @@ mainDo:  DO
           END IF
         END DO
         CASE('2')
-          WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified name (20 characters max): "
-          READ(*,'(A20)') name
+          WRITE(*,'(A)',ADVANCE='no') "  Please enter the name: LAST, FIRST (20 characters max): "
+          READ(*,'(A20)') newIn
+          IF(newIn(1:1)/=' ') name=newIn(1:20)
         CASE('3')
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified street (30 characters max): "
-          READ(*,'(A30)') street
+          READ(*,'(A30)') newIn
+          IF(newIn(1:1)/=' ') street=newIn(1:30)
         CASE('4')
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified city (19 characters max): "
-          READ(*,'(A19)') city
+          READ(*,'(A19)') newIn
+          IF(newIn(1:1)/=' ') city=newIn(1:19)
         CASE('5')
         DO     
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified zip (XXXXX-XXXX): "
           READ(*,'(A10)') newIn
+          IF(newIn(1:1)==' ') EXIT
           IF(newIn(1:1)<'0' .OR. newIn(1:1)>'9' .OR. (len(trim(newIn))/=9 .AND. len(trim(newIn))/=10)) THEN
             WRITE(*,*) "Please enter only digits between 0 and 9 in the form XXXXX-XXXX"
             CYCLE
@@ -143,6 +148,7 @@ mainDo:  DO
           PRINT*
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified state code (Number 01-51): "
           READ(*,'(A2)') newIn
+          IF(newIn(1:1)==' ') EXIT
           IF(newIn>='01' .AND. newIn<='51') THEN
             READ(newIn(1:2),'(I2)') istcode
             EXIT
@@ -160,6 +166,7 @@ mainDo:  DO
           PRINT*
           WRITE(*,'(A)',ADVANCE='no') "  Please enter modified county code (Number 00-67): "
           READ(*,'(A2)') newIn
+          IF(newIn(1:1)==' ') EXIT
           IF(newIn>='00' .AND. newIn<='67') THEN
             READ(newIn(1:2),'(I2)') ictycode
             EXIT
@@ -176,6 +183,7 @@ mainDo:  DO
           CALL dDisplay("vtype ",15,0,6)
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified vehicle type code (Number 01-15): "
           READ(*,'(A2)') newIn
+          IF(newIn(1:1)==' ') EXIT
           IF(newIn>='01' .AND. newIn<='15') THEN
             READ(newIn(1:2),'(I2)') ivtcode
             EXIT
@@ -191,6 +199,7 @@ mainDo:  DO
           CALL dDisplay("vmake ",11,0,20)
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified vehicle make code (Number 01-51): "
           READ(*,'(A2)') newIn
+          IF(newIn(1:1)==' ') EXIT
           IF(newIn>='01' .AND. newIn<='51') THEN
             READ(newIn(1:2),'(I2)') ivmcode
             EXIT
@@ -206,6 +215,7 @@ mainDo:  DO
           CALL dDisplay("color ",25,3,12)
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified top color code (Number 01-31): "
           READ(*,'(A2)') newIn
+          IF(newIn(1:1)==' ') EXIT
           IF(newIn>='01' .AND. newIn<='31') THEN
             READ(newIn(1:2),'(I2)') itccode
             EXIT
@@ -221,6 +231,7 @@ mainDo:  DO
           CALL dDisplay("color ",25,3,12)
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the motified bottom color code (Number 01-31): "
           READ(*,'(A2)') newIn
+          IF(newIn(1:1)==' ') EXIT
           IF(newIn>='01' .AND. newIn<='31') THEN
             READ(newIn(1:2),'(I2)') ibccode
             EXIT
@@ -232,7 +243,8 @@ mainDo:  DO
         END DO
         CASE('12')
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified license plate tag (7 characters max): "
-          READ(*,'(A7)') tag
+          READ(*,'(A7)') newIn
+          IF(newIn(1:1)/=' ') tag=newIn(1:7)
         CASE DEFAULT
           WRITE(*,'(A,A2,A)') " ERROR: Invalid Entry: ",userIn,". Please enter numbers 1-12, 'S' or 'Q'"
           PRINT*

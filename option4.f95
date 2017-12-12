@@ -54,7 +54,7 @@ mainDo: DO
       PRINT*
       WRITE(*,*) "Enter '-1' to quit at anytime"
       PRINT*
-      WRITE(*,'(A)',ADVANCE='no') " Please enter the name for this record (20 characters max): "
+      WRITE(*,'(A)',ADVANCE='no') " Please enter the name: LAST, FIRST (20 characters max): "
       READ(*,'(A20)') name
       PRINT*
         IF(name=='-1') THEN
@@ -88,7 +88,7 @@ mainDo: DO
       ELSEIF(tempZip(1:1)<'0' .OR. tempZip(1:1)>'9' .OR. (len(trim(tempZip))/=9 .AND. len(trim(tempZip))/=10)) THEN
         WRITE(*,*) "Please enter only digits between 0 and 9 in the form XXXXX-XXXX"
         CYCLE
-        END IF
+      END IF
         IF(len(trim(tempZip))==10) zip=tempZip(1:5)//tempZip(7:10)
         IF(len(trim(tempZip))==9) zip=tempZip(1:9)
       EXIT
