@@ -82,22 +82,23 @@ mainDo:  DO
           CYCLE mainDo
         CASE('1')
         DO
+          CALL SYSTEM('clear')
+          CALL pDisplay
+          PRINT*
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified SSN (11 digits w/ hyphens): "
           READ(*,'(A11)') newIn
           IF(newIn(1:1)==' ') EXIT
           IF(newIn(1:1)>'9' .OR. newIn(1:1)<'0') THEN
-            WRITE(*,*)
-            WRITE(*,*) "ERROR: Invalid SSN: ",newIn
-            WRITE(*,*) "Only integers 1-9 and '-' are valid entries"
+            WRITE(*,'(A,A11)') "ERROR: Invalid SSN: ",newIn
+            WRITE(*,'(A)') "Only integers 1-9 and '-' are valid entries"
             PRINT*
             WRITE(*,*) "Press enter to continue..."
             READ*
             CYCLE
           ELSEIF(len(trim(newIn))/=9 .AND. len(trim(newIn))/=11) THEN
-            WRITE(*,*)
-            WRITE(*,*) "ERROR: Invalid SSN: ",newIn
-            WRITE(*,*) "A SSN must be 9 (or 11 with hyphens) digits long"
-            WRITE(*,'(1X,A,I2,A)') "You entered: ",len(trim(newIn))," digits"
+            WRITE(*,'(A,A11)') "ERROR: Invalid SSN: ",newIn
+            WRITE(*,'(A)') "A SSN must be 9 (or 11 with hyphens) digits long"
+            WRITE(*,'(A,I2,A)') "You entered: ",len(trim(newIn))," digits"
             PRINT*
             WRITE(*,*) "Press enter to continue..."
             READ*
@@ -130,11 +131,18 @@ mainDo:  DO
           IF(newIn(1:1)/=' ') city=newIn(1:19)
         CASE('5')
         DO     
+          CALL SYSTEM('clear')
+          CALL pDisplay
+          PRINT*
           WRITE(*,'(A)',ADVANCE='no') "  Please enter the modified zip (XXXXX-XXXX): "
           READ(*,'(A10)') newIn
           IF(newIn(1:1)==' ') EXIT
           IF(newIn(1:1)<'0' .OR. newIn(1:1)>'9' .OR. (len(trim(newIn))/=9 .AND. len(trim(newIn))/=10)) THEN
-            WRITE(*,*) "Please enter only digits between 0 and 9 in the form XXXXX-XXXX"
+            WRITE(*,'(A,A10)') "ERROR: Invalid code: ",newIn
+            WRITE(*,'(A)') "Please enter only digits between 0 and 9 in the form XXXXX-XXXX"
+            PRINT*
+            WRITE(*,*) "Press enter to continue..."
+            READ*
             CYCLE
           END IF
           IF(len(trim(newIn))==10) zip=newIn(1:5)//newIn(7:10)
