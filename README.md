@@ -1,2 +1,2 @@
 # CBHProj
-My respository for the CBH final project. Shhhh....
+My respository for the CBH final project.
